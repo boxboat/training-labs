@@ -1,0 +1,9 @@
+FROM golang:1.10
+
+LABEL maintainer="BoxBoat"
+
+WORKDIR /go/src/app
+COPY . .
+
+CMD go run hello.go
+

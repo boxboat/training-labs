@@ -1,0 +1,22 @@
+ARG GOLANG_VER=1.10
+FROM golang:${GOLANG_VER} as build
+LABEL maintainer="BoxBoat"
+
+WORKDIR /go/src/app
+COPY . .
+
+RUN go install app
+
+CMD ["app"]
+ARG APPVER=undef
+LABEL com.boxboat.my-image.appver=${APPVER}
+
+FROM scratch
+LABEL maintainer="BoxBoat"
+
+COPY --from=build /go/bin/app /app
+
+CMD ["/app"]
+ARG APPVER=undef
+LABEL com.boxboat.my-image.appver=${APPVER}
+
