@@ -13,5 +13,4 @@ Cloning this repo: `git clone https://github.com/boxboat/training-labs`
 - [Lab 09](labs-09.md)
 - [Lab 10](labs-10.md)
 - [Lab 11](labs-11.md)
-- [Lab 12](labs-12.md)
 
