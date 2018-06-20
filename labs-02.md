@@ -74,7 +74,7 @@ What if we had lots of logs? Lets start a container that will generate
 lots of lines of output:
 
 ```
-docker container run -d --name pinger ping 8.8.8.8
+docker container run -d --name pinger busybox ping 8.8.8.8
 ```
 
 Let it run for 5 seconds, and then run:
