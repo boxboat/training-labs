@@ -62,7 +62,7 @@ And then lets run the same container as before, but now with the volume
 populated:
 
 ```
-docker container run --rm -v dynamic:/data busybox /bin/sh
+docker container run -it --rm -v dynamic:/data busybox /bin/sh
 ls -al /data
 echo hello container >/data/container.txt
 exit
