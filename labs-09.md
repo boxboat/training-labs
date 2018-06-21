@@ -9,6 +9,7 @@ be done in a lab:
 ```
 cd
 mkdir registry
+docker image pull busybox:latest
 docker container run -d -p 5000:5000 --restart=unless-stopped --name registry \
   -v "$(pwd)/registry:/var/lib/registry" registry:2
 ```
@@ -40,6 +41,7 @@ pull that same image to another node. The commands for that look like:
 
 ```
 docker image tag busybox:latest ${your_user_id}/training:latest
+docker login
 docker image push ${your_user_id}/training:latest
 ```
 
