@@ -15,7 +15,8 @@ curl -sSL http://127.0.0.1:8080/
 ```
 
 When using play-with-docker the published port should be visible as a link near
-the node IP. This may take a few minutes to appear.
+the node IP. This may take a few minutes to appear. If you have full screened
+your terminal, you'll need to exit full screen by pressing Alt-Enter.
 
 ## Create a Network
 
