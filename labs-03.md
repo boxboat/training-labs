@@ -100,8 +100,9 @@ ip link set eth0 down
 mount -t proc proc /mnt
 echo 1 >/proc/sys/net/ipv4/ip_forward
 reboot
+exit
 ```
 
-Did any of these commands work?
+Did any of these commands work (other than exit)?
 
 
