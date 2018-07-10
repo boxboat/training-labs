@@ -71,6 +71,7 @@ Exit the container and restart from the same image:
 exit
 docker container run -it centos
 ls -l /demo.txt
+exit
 ```
 
 Notice how the container restarts from a clean state each time.
