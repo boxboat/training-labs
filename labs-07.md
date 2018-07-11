@@ -1,5 +1,14 @@
 # Labs: Volumes
 
+
+If you don't have the training-labs directory from a previous lab, clone
+it now:
+
+```
+cd
+git clone https://github.com/boxboat/training-labs
+```
+
 ## List the Volumes
 
 Are there any volumes defined by default?
