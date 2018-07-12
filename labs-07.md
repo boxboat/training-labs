@@ -30,12 +30,14 @@ docker container run -it --rm -u 1000:1000 -v "$(pwd):/data" busybox /bin/sh
 ```
 
 Inside that container, try to view the contents of the directory. What happens
-if you try to write to a file in the volume?
+if you try to write to a file in the volume? What user are you inside the
+container and what users have access to write to the directory?
 
 ```
 ls -al /data
 cat /data/host.txt
 echo hello container >/data/container.txt
+id # use this to check your uid
 exit
 ```
 

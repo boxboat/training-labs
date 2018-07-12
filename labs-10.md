@@ -17,7 +17,7 @@ docker swarm init --advertise-addr eth0
 
 ## Create Swarm Workers
 
-The "init" command above will about a command to run on other nodes to join
+The "init" command above will output a command to run on other nodes to join
 them to the swarm. You can create two additional nodes using the "+ Add New
 Instance" button in the play-with-docker interface (use alt-enter to exit full
 screen if you've done that) and join them now. If you lose your join token, you
