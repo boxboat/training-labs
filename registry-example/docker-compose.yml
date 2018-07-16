@@ -1,0 +1,27 @@
+version: '2'
+
+volumes:
+  registry-data:
+
+services:
+  registry:
+    image: registry:2
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/cert.pem"
+      REGISTRY_HTTP_TLS_KEY: "/certs/key.pem"
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: "/var/lib/registry"
+    volumes:
+      - "registry-data:/var/lib/registry"
+      - "./certs:/certs:ro"
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 5080:80
+    volumes:
+      - "./certs/ca.pem:/usr/share/nginx/html/ca.pem:ro"
+    restart: unless-stopped
+
