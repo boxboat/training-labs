@@ -98,6 +98,11 @@ The above "dd" command is holding several MB of "zeros" in memory before
 writing them out to the /dev/null bit bucket. Each container will be limited to
 1 percent of the CPU.
 
+Note: unfortunately the memory limits are not fully supported in the web
+environment used for this class. If you have your own docker environment to
+test in, you'll see the container get killed by docker. In the web environment
+you'll see the container continue to run at 100% memory.
+
 You may need to give the "bad" container a short bit to exhaust its memory
 limit. Rerun the stats command until "bad" is no longer listed. Then inspect
 the container state to see why the container exited:
