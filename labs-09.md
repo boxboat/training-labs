@@ -96,7 +96,7 @@ know it can trust that CA. Run the following on node2, adjusting the IP address
 to match that of node1:
 
 ```
-mkdir /etc/docker/certs.d/10.0.0.4\:5000
+mkdir -p /etc/docker/certs.d/10.0.0.4\:5000
 curl -sSL 10.0.0.4:5080/ca.pem >/etc/docker/certs.d/10.0.0.4\:5000/ca.crt
 ```
 

@@ -1,14 +1,19 @@
-#!/bin/sh
+#/bin/sh
 
 # lookup the internal interface IP address
-ip_internal=$(ip route get 10.0.0.0 | awk 'NR==1 {print $NF}')
+#ip_internal=$(ip route get 10.0.0.0 | awk 'NR==1 {print $NF}')
 
 # lookup the internet interface IP address
-ip_internet=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+#ip_internet=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+
+#cert_san="IP:127.0.0.1,IP:${ip_internal},IP:${ip_internet},DNS:$(hostname),DNS:localhost"
 
 certdir="certs"
 cert_host="registry"
-cert_san="IP:127.0.0.1,IP:${ip_internal},IP:${ip_internet},DNS:$(hostname),DNS:localhost"
+cert_san="DNS:localhost,DNS:$(hostname)"
+for ip in $(ip a | grep inet | awk '{print $2}' | cut -f1 -d/); do
+  cert_san="${cert_san},IP:$ip"
+done
 
 if [ ! -d "$certdir" ]; then
   mkdir -p "$certdir"
