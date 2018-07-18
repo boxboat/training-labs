@@ -34,11 +34,17 @@ docker image pull localhost:5000/busybox:latest
 ## Pulling to a New Node
 
 Add another host in the docker environment by clicking "+ Add New Instance" in
-the web interface. From the node2 instance, try pulling the image from the 
-registry:
+the web interface. From the node2 instance, first save the IP for node1.
+Replace this IP with your own node1 IP address (check `hostname -i`):
 
 ```
-docker image pull 10.0.0.4:5000/busybox:latest
+node1_ip=10.0.0.4
+```
+
+Now on node2, try pulling the image from the registry:
+
+```
+docker image pull ${node1_ip}:5000/busybox:latest
 ```
 
 You may need to adjust the IP address to match the IP of node1 (the IP for
@@ -87,7 +93,7 @@ Now return to node2 and try pulling the image again (adjust the IP to match
 node1):
 
 ```
-docker image pull 10.0.0.4:5000/busybox:latest
+docker image pull ${node1_ip}:5000/busybox:latest
 ```
 
 Did you get an error about the certificate being signed by an unknown 
@@ -96,8 +102,8 @@ know it can trust that CA. Run the following on node2, adjusting the IP address
 to match that of node1:
 
 ```
-mkdir -p /etc/docker/certs.d/10.0.0.4\:5000
-curl -sSL 10.0.0.4:5080/ca.pem >/etc/docker/certs.d/10.0.0.4\:5000/ca.crt
+mkdir -p /etc/docker/certs.d/${node1_ip}\:5000
+curl -sSL ${node1_ip}:5080/ca.pem >/etc/docker/certs.d/${node1_ip}\:5000/ca.crt
 ```
 
 We used the nginx server running in the above compose file to host the CA
@@ -110,7 +116,7 @@ number in that directory name. The file inside each sub-directory needs to be
 One last time, lets try pulling the image to node2:
 
 ```
-docker image pull 10.0.0.4:5000/busybox:latest
+docker image pull ${node1_ip}:5000/busybox:latest
 ```
 
 ## Push to Docker Hub
