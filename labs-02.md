@@ -49,7 +49,8 @@ docker container ls -a
 
 ## Restart a Container
 
-Find the older "centos" container that's been stopped above, and restart it:
+Find the older "centos" container that's been stopped above, and restart it
+(note that newer containers are at the top of the list):
 
 ```
 docker container restart ${container_id}

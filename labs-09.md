@@ -35,7 +35,7 @@ docker image pull localhost:5000/busybox:latest
 
 Add another host in the docker environment by clicking "+ Add New Instance" in
 the web interface. From the node2 instance, first save the IP for node1.
-Replace this IP with your own node1 IP address (check `hostname -i`):
+Replace this IP with your own node1 IP address (check `hostname -i` on node1):
 
 ```
 node1_ip=10.0.0.4
@@ -47,11 +47,9 @@ Now on node2, try pulling the image from the registry:
 docker image pull ${node1_ip}:5000/busybox:latest
 ```
 
-You may need to adjust the IP address to match the IP of node1 (the IP for
-each instance is shown in the web interface). Docker will give you an error
-indicating that the server needs to be configured with HTTPS (TLS). Why does
-this work for localhost? Check the docker engine's configuration for 
-registries:
+Docker will give you an error indicating that the server needs to be configured
+with HTTPS (TLS). Why does this work for localhost? Check the docker engine's
+configuration for registries:
 
 ```
 docker info --format '{{.RegistryConfig.InsecureRegistryCIDRs}}'

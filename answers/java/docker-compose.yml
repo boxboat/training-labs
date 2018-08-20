@@ -1,0 +1,13 @@
+version: '3.6'
+
+services:
+  springboot:
+    image: springboot-ex:latest
+    ports:
+      - 18080:8080
+    volumes:
+      - type: tmpfs
+        target: /tmp
+        tmpfs:
+          size: 2000000
+      

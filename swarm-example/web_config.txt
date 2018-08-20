@@ -1,0 +1,1 @@
+Service {{.Service.Name}} instance {{.Task.Slot}} running on {{.Node.ID}}

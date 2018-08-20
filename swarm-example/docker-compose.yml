@@ -1,0 +1,75 @@
+version: '3.6'
+
+configs:
+  web_config:
+    external: true
+    name: web_config_1
+  index_html:
+    name: index_html_1
+    file: index.html
+  traefik_toml:
+    name: traefik_toml_1
+    file: traefik.toml
+
+services:
+  traefik:
+    image: traefik
+    deploy:
+      labels:
+        - traefik.frontend.rule=PathPrefixStrip:/traefik
+        - traefik.port=8080
+        - traefik.enable=true
+        - traefik.docker.network=${stack_name:-dev}_default
+    ports:
+      - target: 80
+        protocol: tcp
+        published: 8888
+        mode: ingress
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    configs:
+      - source: traefik_toml
+        target: /etc/traefik/traefik.toml
+        mode: 444
+  visualizer:
+    image: dockersamples/visualizer:stable
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      labels:
+        - traefik.frontend.rule=PathPrefix:/visualizer
+        - traefik.port=8080
+        - traefik.enable=true
+    environment:
+      CTX_ROOT: "/visualizer"
+  index:
+    image: nginx
+    deploy:
+      labels:
+        - traefik.frontend.rule=PathPrefixStrip:/
+        - traefik.port=80
+        - traefik.enable=true
+    configs:
+      - source: index_html
+        target: /usr/share/nginx/html/index.html
+        mode: 444
+  nginx:
+    image: nginx
+    deploy:
+      labels:
+        - traefik.frontend.rule=PathPrefixStrip:/nginx
+        - traefik.port=80
+        - traefik.enable=true
+    configs:
+      - source: web_config
+        target: /usr/share/nginx/html/config.txt
+        mode: 444
+  caddy:
+    image: abiosoft/caddy
+    deploy:
+    configs:
+      - source: web_config
+        target: /srv/config.txt
+        mode: 444
+

@@ -1,4 +1,6 @@
 ARG GOLANG_VER=1.10
+
+# stage 1
 FROM golang:${GOLANG_VER} as build
 LABEL maintainer="BoxBoat"
 
@@ -8,15 +10,19 @@ COPY . .
 RUN go install app
 
 CMD ["app"]
-ARG APPVER=undef
-LABEL com.boxboat.my-image.appver=${APPVER}
+ARG APP_VER=undef
+LABEL com.boxboat.my-image.app-ver=${APP_VER}
+LABEL com.boxboat.my-image.golang-ver=${GOLANG_VER}
 
+# stage 2
 FROM scratch
 LABEL maintainer="BoxBoat"
 
+# this next line is the key piece of a multi-stage build
 COPY --from=build /go/bin/app /app
 
 CMD ["/app"]
-ARG APPVER=undef
-LABEL com.boxboat.my-image.appver=${APPVER}
+ARG APP_VER=undef
+LABEL com.boxboat.my-image.app-ver=${APP_VER}
+LABEL com.boxboat.my-image.golang-ver=${GOLANG_VER}
 

@@ -1,42 +1,14 @@
-# Labs: Build
+# Labs: Build - Part 2
 
-## Build a static binary
+## Clone the Repo
 
-Clone the training repo:
+Clone the training repo if you haven't already:
 
 ```
 cd
 git clone https://github.com/boxboat/training-labs
 cd training-labs/go-example
 ```
-
-View the Dockerfile and hello.go. This is an extremely simple "hello world"
-go image. Run a build:
-
-```
-docker image build -t my-hello:static .
-```
-
-Test this app out:
-
-```
-docker container run -it --rm my-hello:static
-```
-
-## Updating an Image
-
-Try editing the hello.go file and rerunning the container to see the image is
-unchanged. Rebuild the image with another tag "my-hello:v2", and run the old and
-new versions to see how easy it is to change between running versions.
-
-View the history of your old and new images with:
-
-```
-docker image history my-hello:static
-docker image history my-hello:v2
-```
-
-Where do the layers diverge between the old and new images?
 
 ## Multi-stage Build
 
@@ -53,8 +25,8 @@ Verify the image still works:
 docker container run -it --rm my-hello:multi-stage
 ```
 
-What happens if you try to get a shell inside this container and why? Hint:
-check the value of your base image.
+What happens if you try to get a shell inside this container?
+Hint: check the value of your base image in the Dockerfile.
 
 ```
 docker container run -it --rm my-hello:multi-stage /bin/sh
@@ -133,7 +105,7 @@ also use a build arg to inject the version into the image labels:
 
 ```
 docker image build -f Dockerfile.multi-stage --target build -t my-hello:alpine \
-  --build-arg GOLANG_VER=1.10-alpine --build-arg APPVER=1.0.0-alpine .
+  --build-arg GOLANG_VER=1.10-alpine --build-arg APP_VER=1.0.0-alpine .
 docker container run -it --rm my-hello:alpine
 docker image inspect \
   --format '{{range $k,$v := .Config.Labels}}{{printf "%s = %s\n" $k $v}}{{end}}' \
@@ -144,6 +116,9 @@ Did the image still work with the version change? Labels are often used to add
 additional data to objects in docker, which you can then query later. They can
 be very useful for scripting, e.g. identifying images that can be automatically
 purged.
+
+Can you explain why the golang-ver label is undefined but the image still built
+correctly? See if you can fix this.
 
 Can you explain what's happening in the format string above? If you have extra
 time, try to output different fields from the inspect output using the format

@@ -1,0 +1,13 @@
+accessLogsFile = "/dev/stdout"
+defaultEntryPoints = ["http"]
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+[web]
+address = ":8080"
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "localhost"
+watch = true
+swarmmode = true
+exposedbydefault = false

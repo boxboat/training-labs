@@ -1,4 +1,4 @@
-# Labs: Swarm
+# Labs: Swarm Part 1
 
 ## Create a Swarm Manager
 
@@ -9,7 +9,8 @@ docker swarm init
 ```
 
 If you have multiple network interfaces, you'll see an error directing you to
-specify which interface to advertise.
+specify which interface to advertise. In the play-with-docker environment, that
+looks like:
 
 ```
 docker swarm init --advertise-addr eth0

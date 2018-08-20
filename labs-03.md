@@ -5,7 +5,7 @@
 This shows details about the running engine:
 
 ```
-docker info
+docker system info
 ```
 
 Do you see the storage driver in the above output?
@@ -18,6 +18,39 @@ ps -ef | grep docker
 
 Included in the above output should be `dockerd` and `docker-containerd`.
 Running containers will have a `docker-containerd-shim` that uses runc.
+
+## Update the Configuration
+
+Check the initial value of the labels:
+
+```
+docker system info --format '{{.Labels}}'
+```
+
+Edit /etc/docker/daemon.json, adding "labels" to the engine. The result should
+look like:
+
+```
+{
+    "experimental": true,
+    "debug": true,
+    "log-level": "info",
+    "insecure-registries": ["127.0.0.1"],
+    "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2375"],
+    "labels": ["location=cloud","env=pwd"],
+    "tls": false,
+    "tlscacert": "",
+    "tlscert": "",
+    "tlskey": ""
+}
+```
+
+Reload the configuration and check the resulting labels:
+
+```
+killall -HUP dockerd
+docker system info --format '{{.Labels}}'
+```
 
 ## Inspect the Layers of an Image
 
@@ -41,68 +74,5 @@ If you look carefully, you'll see the lowest layers of the nginx image
 match that of the debian:stretch-slim image. This shows both the layered
 filesystem but also the extending of one image from another image.
 
-## Networks
-
-Docker includes some default networks out of the box:
-
-```
-docker network ls
-docker network inspect bridge
-```
-
-Run a container using the default bridge network, and compare that to
-the networks on the host:
-
-```
-ip a
-docker container run --rm busybox ip a
-```
-
-## Namespaces
-
-Containers run processes different namespaces. We've already seen filesystem
-and network namespaces. Lets look at the PID namespace:
-
-```
-docker container run --name pinger -d busybox ping 8.8.8.8
-ps -ef | grep ping
-docker exec pinger ps -ef
-```
-
-Did you get an error about "pinger" already being used? First stop and remove
-that container before reusing the name.
-
-Compare the PID inside vs outside the container. The host can see the container
-but the container cannot see the host. Cleanup this container:
-
-```
-docker container stop pinger
-docker container rm pinger
-```
-
-## Security
-
-Lets try running a few commands to break out of our container. First, start
-up a new container and verify your user id:
-
-```
-docker container run -it --rm busybox /bin/sh
-whoami
-```
-
-Now try each of the following commands to see what is possible as the root
-user inside the container:
-
-```
-date -s "1999-12-31 23:59:00"
-hostname hacked
-ip link set eth0 down
-mount -t proc proc /mnt
-echo 1 >/proc/sys/net/ipv4/ip_forward
-reboot
-exit
-```
-
-Did any of these commands work (other than exit)?
 
 
