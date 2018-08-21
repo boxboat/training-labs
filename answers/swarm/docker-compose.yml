@@ -81,6 +81,7 @@ services:
       update_config:
         order: start-first
         parallelism: 2
+        delay: 60s
       placement:
         constraints:
           - node.labels.type == web

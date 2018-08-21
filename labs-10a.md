@@ -40,6 +40,13 @@ the manager.
 
 ## Example Voting App
 
+If you do not have the example voting app checked out from lab 8, do that now:
+
+```
+cd
+git clone https://github.com/docker/example-voting-app.git
+```
+
 Lets run the same voting app from the compose example, but now in swarm mode:
 
 ```

@@ -116,7 +116,7 @@ On a worker node, run the following and leave it up for this section (you can
 stop it at the end with a control-c):
 
 ```
-while true; do curl -sSL http://127.0.0.1:8888/nginx/config.txt; sleep 1; done
+while true; do timeout -t 1 curl -sSL http://127.0.0.1:8888/nginx/config.txt; sleep 5; done
 ```
 
 Now that you've figured out how to reconfigure the index service with a new
