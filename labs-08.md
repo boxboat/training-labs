@@ -18,6 +18,21 @@ The last command will not return a prompt. You will see it doing the following:
 - Starting up multiple containers with the proper settings, volumes, and
   networking
 
+If the above command fails with a nodejs error, edit the `result/Dockerfile`
+with:
+
+```
+...
+RUN mkdir -p /app
+WORKDIR /app
+
+# Add this next line
+RUN npm config set unsafe-perm true
+RUN npm install -g nodemon
+RUN npm config set registry https://registry.npmjs.org
+...
+```
+
 You can review the code, and in particular the docker-compose.yml file at:
 https://github.com/docker/example-voting-app
 
