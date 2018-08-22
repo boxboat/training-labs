@@ -128,6 +128,8 @@ Make the developers life easier to including a docker-compose.yml. It should
 have the following:
 
 - Use at least version "3.6" for the syntax.
+  - You may need to upgrade docker-compose to support this file version. Use
+    `pip install docker-compose==1.22.0` to upgrade to the 1.22.0 release.
 - Specify the image name, the CI server will be building the image for us,
   so no need to specify the build command in the docker-compose.yml, but you
   could make a `build.sh` script for the developers local machine.

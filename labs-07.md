@@ -155,8 +155,8 @@ Are the contents of the image visible when you mount the other volume?
 Where does docker store the volume defined below?
 
 ```
-docker container run --rm -v /image-data volume-ex ls -l /image-data
-docker container run --rm -v /data busybox touch /data/easily-lost.txt
+docker container run -v /image-data volume-ex ls -l /image-data
+docker container run -v /data busybox touch /data/easily-lost.txt
 ```
 
 Run the above command a few times. Then have a look at your volume list:
@@ -175,4 +175,9 @@ you back to the purpose (replace `${volume_name}` with an anonymous volume id):
 docker volume inspect ${volume_name}
 ```
 
+# Cleanup any leftover containers
+
+```
+docker container prune
+```
 
