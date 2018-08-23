@@ -46,7 +46,7 @@ which would add a label named "key" with value "value" to the node "nodex".
 ## Configure a Compose File for a Multi-node Swarm Cluster
 
 *If at any point you get stuck in this section, there is an answer key in
-[`$HOME/training-labs/answers/swarm`](answers/swarm/).
+[`$HOME/training-labs/answers/swarm`](answers/swarm/).*
 
 Documentation for the compose file format is at:
 https://docs.docker.com/compose/compose-file
@@ -116,7 +116,7 @@ On a worker node, run the following and leave it up for this section (you can
 stop it at the end with a control-c):
 
 ```
-while true; do timeout -t 1 curl -sSL http://127.0.0.1:8888/nginx/config.txt; sleep 5; done
+while true; do timeout -t 5 curl -sSL http://127.0.0.1:8888/nginx/config.txt; sleep 5; done
 ```
 
 Now that you've figured out how to reconfigure the index service with a new

@@ -11,3 +11,9 @@ domain = "localhost"
 watch = true
 swarmmode = true
 exposedbydefault = false
+[forwardingTimeouts]
+dialTimeout = "1s"
+responseHeaderTimeout = "5s"
+[retry]
+attempts = 3
+
