@@ -68,6 +68,10 @@ services:
   caddy:
     image: abiosoft/caddy
     deploy:
+      labels:
+        - traefik.frontend.rule=PathPrefixStrip:/caddy
+        - traefik.port=2015
+        - traefik.enable=true
     configs:
       - source: web_config
         target: /srv/config.txt
