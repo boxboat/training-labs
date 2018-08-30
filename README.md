@@ -12,7 +12,8 @@ Cloning this repo: `git clone https://github.com/boxboat/training-labs`
 - [Lab 07](labs-07.md): Volumes
 - [Lab 08](labs-08.md): Compose
 - [Lab 09](labs-09.md): Registry
-- [Lab 10](labs-10.md): Swarm
+- [Lab 10](labs-10a.md): Swarm (Part 1)
+- [Lab 10](labs-10b.md): Swarm (Part 2)
 - [Lab 11](labs-11.md): Security
 - [Lab 13](labs-13.md): Build - Advanced
 
